@@ -12,6 +12,7 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 app.url_map.strict_slashes = False
 
+
 @app.teardown_appcontext
 def commit_data(error):
         """
@@ -35,4 +36,4 @@ def not_found(error):
 
 
 if __name__ == "__main__":
-        app.run(host="0.0.0.0", port=5000, threaded=True, debug=True)
+        app.run(host="0.0.0.0", port=5000, threaded=True)
