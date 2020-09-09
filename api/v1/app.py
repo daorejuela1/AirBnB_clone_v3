@@ -31,8 +31,8 @@ def not_found(error):
 
     """
     my_error_dict = {"error": "Not found"}
-    return jsonify(my_error_dict)
+    return jsonify(my_error_dict), 404
 
 
 if __name__ == "__main__":
-        app.run(host="0.0.0.0", port=5000, threaded=True, debug=True)
+        app.run(host="0.0.0.0", port=5000, threaded=True)
