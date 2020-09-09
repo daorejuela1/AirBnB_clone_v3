@@ -10,7 +10,7 @@ from api.v1.views import app_views
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
-
+app.url_map.strict_slashes = False
 
 @app.teardown_appcontext
 def commit_data(error):
@@ -31,7 +31,7 @@ def not_found(error):
 
     """
     my_error_dict = {"error": "Not found"}
-    return jsonify(my_error_dict)
+    return jsonify(my_error_dict), 404
 
 
 if __name__ == "__main__":
