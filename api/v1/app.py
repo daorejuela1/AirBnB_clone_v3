@@ -19,7 +19,6 @@ api_host = getenv('HBNB_API_HOST', "0.0.0.0")
 api_port = getenv('HBNB_API_PORT', 5000)
 
 
-
 @app.teardown_appcontext
 def commit_data(error):
         """
@@ -43,8 +42,4 @@ def not_found(error):
 
 
 if __name__ == "__main__":
-<<<<<<< HEAD
-        app.run(host=api_host, port=int(api_port), threaded=True, debug=True)
-=======
         app.run(host="0.0.0.0", port=5000, threaded=True)
->>>>>>> 66b43ac4d79bce35bda4d72c042e148439dd7188
