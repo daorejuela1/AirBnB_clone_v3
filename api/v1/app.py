@@ -4,7 +4,7 @@
 Flask web server creation to handle api petition-requests
 
 """
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint, jsonify
 from models import storage
 from api.v1.views import app_views
 
@@ -18,6 +18,21 @@ def commit_data(error):
         Commit changes in database
         """
         storage.close()
+
+
+@app.errorhandler(404)
+def not_found(error):
+    """
+
+    Args:
+        error: error received
+
+    Returns: Json with data
+
+    """
+    my_error_dict = {"error": "Not found"}
+    return jsonify(my_error_dict)
+
 
 if __name__ == "__main__":
         app.run(host="0.0.0.0", port=5000, threaded=True, debug=True)
