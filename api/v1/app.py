@@ -31,8 +31,8 @@ def not_found(error):
     Returns: Json with data
 
     """
-    my_dict = {"error": "Not found"}
-    return jsonify(my_dict), 404
+    my_error_dict = {"error": "Not found"}
+    return jsonify(my_error_dict), 404
 
 
 if __name__ == "__main__":
