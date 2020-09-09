@@ -4,8 +4,7 @@
 Flask web server creation to handle api petition-requests
 
 """
-from flask import Response
-import json
+from flask import Response, jsonify
 from api.v1.views import app_views
 from models import storage
 from models.engine.db_storage import classes
@@ -17,8 +16,7 @@ def check_status():
     Commit changes in database
     """
     status_dict = {"status": "OK"}
-    return Response(json.dumps(status_dict, indent=4) + "\n",
-                    mimetype="application/json")
+    return jsonify(status_dict)
 
 
 @app_views.route('/stats')
@@ -32,5 +30,4 @@ def num_objs():
             "reviews": storage.count(classes["Review"]),
             "states": storage.count(classes["State"]),
             "users": storage.count(classes["User"])}
-    return Response(json.dumps(objs, indent=4) + "\n",
-                    mimetype="application/json")
+    return jsonify(objs)
