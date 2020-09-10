@@ -213,3 +213,12 @@ class TestFileStorage(unittest.TestCase):
         storage.new(instance)
         instance.save()
         self.assertEqual(storage.count(instance), 0)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count_ok_no_arg(self):
+        """Test count without args """
+        instance = Place()
+        storage = FileStorage()
+        storage.new(instance)
+        instance.save()
+        self.assertEqual(storage.count(), 11)
