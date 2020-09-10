@@ -134,3 +134,10 @@ class TestDBStorage(unittest.TestCase):
         instance = State(name="Florida")
         instance.save()
         self.assertEqual(models.storage.count(), 1)
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_count(self):
+        """Test count bad param"""
+        instance = State(name="Florida")
+        instance.save()
+        self.assertEqual(models.storage.count(list), 0)
