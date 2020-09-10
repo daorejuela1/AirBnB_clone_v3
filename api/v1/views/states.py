@@ -54,7 +54,7 @@ def post_state():
     Create a new State object
     """
     data_json = request.get_json(force=True, silent=True)
-    if (data_json is None):
+    if (type(data_json) is not dict):
         abort(400, "Not a JSON")
     if "name" in data_json:
         new_state = classes["State"](**data_json)
@@ -74,7 +74,7 @@ def put_state(state_id):
     if obj is None:
         abort(404)
     data_json = request.get_json(force=True, silent=True)
-    if (data_json is None):
+    if (type(data_json) is not dict):
         abort(400, "Not a JSON")
     for key, value in data_json.items():
         if key in ["id", "created_at", "updated_at"]:
