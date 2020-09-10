@@ -17,12 +17,12 @@ def all_reviews(city_id):
     """
     Retrieves the list of all Place objects
     """
-    place = storage.get(classes["Place"], place_id)
-    if place is None:
+    city = storage.get(classes["City"], city_id)
+    if city is None:
         abort(404)
     my_list = []
-    for review in place.reviews:
-        my_list.append(review.to_dict())
+    for place in city.places:
+        my_list.append(place.to_dict())
     return jsonify(my_list)
 
 
