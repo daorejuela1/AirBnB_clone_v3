@@ -89,13 +89,13 @@ class TestDBStorage(unittest.TestCase):
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_get_0_arg(self):
-        """Test that get no exist properly saves objects to file.json"""
+        """Test that get raise an error without params"""
         with self.assertRaises(TypeError):
             models.storage.get()
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_get_1_arg(self):
-        """Test that get no exist properly saves objects to file.json"""
+        """Test that get raise an error with one param"""
         with self.assertRaises(TypeError):
             models.storage.get(None)
 
