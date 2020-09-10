@@ -13,7 +13,7 @@ from models.engine.db_storage import classes
 
 @app_views.route('/cities/<city_id>/places',
                  strict_slashes=False, methods=['GET'])
-def all_reviews(city_id):
+def all_places(city_id):
     """
     Retrieves the list of all Place objects
     """
@@ -26,12 +26,12 @@ def all_reviews(city_id):
     return jsonify(my_list)
 
 
-@app_views.route('/reviews/<review_id>', strict_slashes=False, methods=['GET'])
-def some_review(review_id):
+@app_views.route('/places/<place_id>', strict_slashes=False, methods=['GET'])
+def some_place(place_id):
     """
     Retrieves a Review object if id is linked to some Review object
     """
-    some_objs = storage.get(classes["Review"], review_id)
+    some_objs = storage.get(classes["Place"], place_id)
     if some_objs is None:
         abort(404)
     some_objs = some_objs.to_dict()
