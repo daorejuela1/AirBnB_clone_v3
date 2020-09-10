@@ -73,8 +73,8 @@ class DBStorage:
 
     def get(self, cls, id):
         """Retrieve one object"""
-        objs = self.__session.query(classes[cls.__name__]).all()
-        for obj in objs:
+        objs = self.all(cls)
+        for obj in objs.values():
             if id == obj.id:
                 return obj
         return None

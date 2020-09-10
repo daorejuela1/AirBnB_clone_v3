@@ -112,64 +112,20 @@ class TestDBStorage(unittest.TestCase):
             models.storage.get(None)
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_get_3_arg(self):
-        """Test that get raise an error with 3 params"""
-        with self.assertRaises(TypeError):
-            models.storage.get(None, None, None)
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_get_no_exist(self):
-        """ test with a get that not exist """
-        instance = State(name="Florida")
-        instance.save()
-        self.assertTrue(type(models.storage.get(Place, instance.id)),
-                        type(State))
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_get_none_exist(self):
-        """ test with a get that not exist """
-        instance = State(name="Florida")
-        instance.save()
-        self.assertTrue(type(models.storage.get(User, instance.id)),
-                        type(State))
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_get_no_id_exist(self):
-        """ test with a get that not exist """
-        instance = State(name="Florida")
-        instance.save()
-        self.assertTrue(type(models.storage.get(Place, None)),
-                        type(None))
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_get_exist(self):
-        """ test with a get that exist """
-        instance = State(name="Florida")
-        instance.save()
-        self.assertTrue(type(models.storage.get(State, instance.id)),
-                        type(State))
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_count_3_args(self):
-        """Test count with 3 args"""
-        with self.assertRaises(TypeError):
-            models.storage.count(12313, 123123, 123)
+    def test_get(self):
+        """Test for get() method"""
+        self.state1 = State(name="Texas")
+        self.state1.save()
+        state_id = self.state1.id
+        states_id = models.storage.get("State", self.state1.id)
+        self.assertTrue(states_id)
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_count(self):
-        """Test count with an obj"""
-        instance = State(name="Florida")
-        instance.save()
-        self.assertTrue(models.storage.count(User) != 199)
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_count2(self):
-        """Test count empty"""
-        instance = State(name="Florida")
-        instance.save()
-        self.assertTrue(models.storage.count() >= 0)
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_count3(self):
-        """Test count bad param"""
-        self.assertEqual(models.storage.count(list), 0)
+        """Test for count() method"""
+        count_cls_0 = models.storage.count()
+        self.state1 = State(name="Texas")
+        models.storage.new(self.state1)
+        self.state1.save()
+        count_cls_1 = models.storage.count()
+        self.assertNotEqual(count_cls_0, count_cls_1)
