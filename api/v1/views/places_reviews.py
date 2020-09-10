@@ -15,7 +15,7 @@ from models.engine.db_storage import classes
                  strict_slashes=False, methods=['GET'])
 def all_reviews(place_id):
     """
-    Retrieves the list of all Place objects
+    Retrieves the list of all review objects
     """
     place = storage.get(classes["Place"], place_id)
     if place is None:

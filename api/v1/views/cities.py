@@ -15,7 +15,7 @@ from models.engine.db_storage import classes
                  strict_slashes=False, methods=['GET'])
 def all_cities(state_id):
     """
-    Retrieves the list of all State objects
+    Retrieves the list of all city objects
     """
     state = storage.get(classes["State"], state_id)
     if state is None:
