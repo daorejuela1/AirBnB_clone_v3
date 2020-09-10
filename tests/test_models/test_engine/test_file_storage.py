@@ -113,3 +113,103 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_0_arg(self):
+        """Test that get no exist properly saves objects to file.json"""
+        storage = FileStorage()
+        with self.assertRaises(TypeError):
+            storage.get()
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_1_arg(self):
+        """Test that get no exist properly saves objects to file.json"""
+        storage = FileStorage()
+        with self.assertRaises(TypeError):
+            storage.get(None)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_no_exist(self):
+        """Test that get no exist properly saves objects to file.json"""
+        instance = Place()
+        storage = FileStorage()
+        storage.new(instance)
+        storage.save()
+        self.assertEqual(type(storage.get(None, instance.id)), type(instance))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_id_no_exist(self):
+        """Test get without id"""
+        instance = Place()
+        storage = FileStorage()
+        storage.new(instance)
+        storage.save()
+        self.assertEqual(type(storage.get(instance, None)), type(None))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_bad_id_no(self):
+        """Test get without id"""
+        instance = Place()
+        storage = FileStorage()
+        storage.new(instance)
+        storage.save()
+        self.assertEqual(type(storage.get(instance, "idnotexist")), type(None))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_bad_id_no(self):
+        """Test get without id"""
+        instance = Place()
+        storage = FileStorage()
+        storage.new(instance)
+        storage.save()
+        self.assertEqual(type(storage.get(State(), instance.id)), type(None))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_bad_request_no(self):
+        """Test get with wrong existing id"""
+        instance = Place()
+        second_instance = State()
+        storage = FileStorage()
+        storage.new(instance)
+        storage.new(second_instance)
+        storage.save()
+        self.assertEqual(type(storage.get(instance, second_instance)),
+                         type(None))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_ok(self):
+        """Test get working ok"""
+        instance = Place()
+        storage = FileStorage()
+        storage.new(instance)
+        storage.save()
+        self.assertEqual(type(storage.get(instance, instance.id)),
+                         type(None))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count_3_args(self):
+        """Test count with 3 args"""
+        instance = Place()
+        storage = FileStorage()
+        storage.new(instance)
+        storage.save()
+        with self.assertRaises(TypeError):
+            storage.count(1, 2, 3)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count_bad_arg(self):
+        """Test count with bad arg"""
+        instance = Place()
+        storage = FileStorage()
+        storage.new(instance)
+        storage.save()
+        self.assertEqual(storage.count(list), 0)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count_ok_arg(self):
+        """Test count with bad arg"""
+        instance = Place()
+        storage = FileStorage()
+        storage.new(instance)
+        instance.save()
+        self.assertEqual(storage.count(instance), 0)

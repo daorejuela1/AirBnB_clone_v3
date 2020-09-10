@@ -6,6 +6,7 @@ Contains the TestDBStorageDocs and TestDBStorage classes
 from datetime import datetime
 import inspect
 import models
+from models.engine.db_storage import DBStorage
 from models.engine import db_storage
 from models.amenity import Amenity
 from models.base_model import BaseModel
@@ -18,7 +19,6 @@ import json
 import os
 import pep8
 import unittest
-DBStorage = db_storage.DBStorage
 classes = {"Amenity": Amenity, "City": City, "Place": Place,
            "Review": Review, "State": State, "User": User}
 
@@ -68,8 +68,8 @@ test_db_storage.py'])
                             "{:s} method needs a docstring".format(func[0]))
 
 
-class TestFileStorage(unittest.TestCase):
-    """Test the FileStorage class"""
+class TestDBStorage(unittest.TestCase):
+    """Test the DBStorage class"""
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_all_returns_dict(self):
         """Test that all returns a dictionaty"""
@@ -86,3 +86,51 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_get_0_arg(self):
+        """Test that get no exist properly saves objects to file.json"""
+        with self.assertRaises(TypeError):
+            models.storage.get()
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_get_1_arg(self):
+        """Test that get no exist properly saves objects to file.json"""
+        with self.assertRaises(TypeError):
+            models.storage.get(None)
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_get_no_exist(self):
+        """ test with a get that not exist """
+        instance = State(name="Florida")
+        instance.save()
+        self.assertTrue(type(models.storage.get(Place, instance.id)),
+                        type(State))
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_get_exist(self):
+        """ test with a get that exist """
+        instance = State(name="Florida")
+        instance.save()
+        self.assertTrue(type(models.storage.get(State, instance.id)),
+                        type(State))
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_count_3_args(self):
+        """Test count with 3 args"""
+        with self.assertRaises(TypeError):
+            models.storage.count(12313, 123123, 123)
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_count(self):
+        """Test count with an obj"""
+        instance = State(name="Florida")
+        instance.save()
+        self.assertEqual(models.storage.count(User), 0)
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_count(self):
+        """Test count empty"""
+        instance = State(name="Florida")
+        instance.save()
+        self.assertEqual(models.storage.count(), 1)
