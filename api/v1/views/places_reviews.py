@@ -15,7 +15,7 @@ from models.engine.db_storage import classes
                  strict_slashes=False, methods=['GET'])
 def all_reviews(place_id):
     """
-    Retrieves the list of all Place objects
+    Retrieves the list of all review objects
     """
     place = storage.get(classes["Place"], place_id)
     if place is None:
@@ -54,12 +54,12 @@ def del_review(review_id):
 
 @app_views.route('/places/<place_id>/reviews',
                  strict_slashes=False, methods=['POST'])
-def post_review():
+def post_review(place_id):
     """
     Create a new Review object
     """
     place_obj = storage.get(classes["Place"], place_id)
-    if place_objs is None:
+    if place_obj is None:
         abort(404)
     data_json = request.get_json(force=True, silent=True)
     if (type(data_json) is not dict):
@@ -72,7 +72,7 @@ def post_review():
     if "text" not in data_json:
         abort(400, "Missing text")
     else:
-        new_review = classes["Review"](**data_json)
+        new_review = classes["Review"](place_id=place_id, **data_json)
         storage.new(new_review)
         storage.save()
         return jsonify(new_review.to_dict()), 201
