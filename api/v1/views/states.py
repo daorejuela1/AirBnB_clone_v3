@@ -11,7 +11,7 @@ from models import storage
 from models.engine.db_storage import classes
 
 
-@app_views.route('/states/', methods=['GET'])
+@app_views.route('/states', strict_slashes=False, methods=['GET'])
 def all_states():
     """
     Retrieves the list of all State objects
@@ -23,7 +23,7 @@ def all_states():
     return jsonify(list_obj)
 
 
-@app_views.route('/states/<state_id>', methods=['GET'])
+@app_views.route('/states/<state_id>', strict_slashes=False, methods=['GET'])
 def some_state(state_id):
     """
     Retrieves a State object if id is linked to some State object
@@ -35,7 +35,8 @@ def some_state(state_id):
     return jsonify(some_objs)
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'])
+@app_views.route('/states/<state_id>',
+                 strict_slashes=False, methods=['DELETE'])
 def del_state(state_id):
     """
     Deletes a State object if id is linked to some State object
@@ -48,7 +49,7 @@ def del_state(state_id):
     return jsonify({})
 
 
-@app_views.route('/states/', methods=['POST'])
+@app_views.route('/states/', strict_slashes=False, methods=['POST'])
 def post_state():
     """
     Create a new State object
@@ -65,7 +66,7 @@ def post_state():
         abort(400, "Missing name")
 
 
-@app_views.route('/states/<state_id>', methods=['PUT'])
+@app_views.route('/states/<state_id>', strict_slashes=False, methods=['PUT'])
 def put_state(state_id):
     """
     Update a State object
