@@ -219,6 +219,8 @@ class TestFileStorage(unittest.TestCase):
         """Test count without args """
         instance = Place()
         storage = FileStorage()
+        first = storage.count()
         storage.new(instance)
         instance.save()
-        self.assertEqual(storage.count(), 11)
+        second = storage.count()
+        self.assertTrue(second > first)
