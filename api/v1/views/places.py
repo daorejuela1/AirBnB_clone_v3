@@ -29,7 +29,7 @@ def all_places(city_id):
 @app_views.route('/places/<place_id>', strict_slashes=False, methods=['GET'])
 def some_place(place_id):
     """
-    Retrieves a Review object if id is linked to some Review object
+    Retrieves a Place object if id is linked to some Place object
     """
     some_objs = storage.get(classes["Place"], place_id)
     if some_objs is None:
@@ -38,13 +38,13 @@ def some_place(place_id):
     return jsonify(some_objs)
 
 
-@app_views.route('/reviews/<review_id>',
+@app_views.route('/places/<place_id>',
                  strict_slashes=False, methods=['DELETE'])
-def del_review(review_id):
+def del_place(place_id):
     """
-    Deletes a Review object if id is linked to some Review object
+    Deletes a Place object if id is linked to some Place object
     """
-    some_objs = storage.get(classes["Review"], review_id)
+    some_objs = storage.get(classes["Place"], place_id)
     if some_objs is None:
         abort(404)
     storage.delete(some_objs)
@@ -54,9 +54,9 @@ def del_review(review_id):
 
 @app_views.route('/places/<place_id>/reviews',
                  strict_slashes=False, methods=['POST'])
-def post_review(place_id):
+def post_place(place_id):
     """
-    Create a new Review object
+    Create a new Place object
     """
     place_obj = storage.get(classes["Place"], place_id)
     if place_obj is None:
@@ -72,18 +72,18 @@ def post_review(place_id):
     if "text" not in data_json:
         abort(400, "Missing text")
     else:
-        new_review = classes["Review"](place_id=place_id, **data_json)
-        storage.new(new_review)
+        new_place = classes["Place"](place_id=place_id, **data_json)
+        storage.new(new_place)
         storage.save()
-        return jsonify(new_review.to_dict()), 201
+        return jsonify(new_place.to_dict()), 201
 
 
 @app_views.route('/reviews/<review_id>', strict_slashes=False, methods=['PUT'])
-def put_review(review_id):
+def put_place(place_id):
     """
-    Update a Review object
+    Update a Place object
     """
-    obj = storage.get(classes["Review"], review_id)
+    obj = storage.get(classes["Place"], place_id)
     if obj is None:
         abort(404)
     data_json = request.get_json(force=True, silent=True)
