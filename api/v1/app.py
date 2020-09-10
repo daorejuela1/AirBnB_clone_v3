@@ -14,7 +14,7 @@ from os import getenv
 app = Flask(__name__)
 app.register_blueprint(app_views)
 app.url_map.strict_slashes = False
-CORS(app)
+CORS(app, origins="0.0.0.0")
 api_host = getenv('HBNB_API_HOST', "0.0.0.0")
 api_port = getenv('HBNB_API_PORT', 5000)
 
