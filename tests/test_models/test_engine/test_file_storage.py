@@ -67,6 +67,18 @@ test_file_storage.py'])
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
 
+    def test_executable_file(self):
+        """ Check if file have permissions to execute"""
+        # Check for read access
+        is_read_true = os.access('models/engine/file_storage.py', os.R_OK)
+        self.assertTrue(is_read_true)
+        # Check for write access
+        is_write_true = os.access('models/engine/file_storage.py', os.W_OK)
+        self.assertTrue(is_write_true)
+        # Check for execution access
+        is_exec_true = os.access('models/engine/file_storage.py', os.X_OK)
+        self.assertTrue(is_exec_true)
+
 
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""
