@@ -129,8 +129,15 @@ class TestFileStorage(unittest.TestCase):
             storage.get(None)
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-    def test_get_no_exist(self):
-        """Test that get no exist properly saves objects to file.json"""
+    def test_get_3_arg(self):
+        """Test that get no exist with 3 args"""
+        storage = FileStorage()
+        with self.assertRaises(TypeError):
+            storage.get(None, None, None)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_no_exist_as_same(self):
+        """Test that get do not save objects to file.json"""
         instance = Place()
         storage = FileStorage()
         storage.new(instance)
@@ -147,7 +154,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(type(storage.get(instance, None)), type(None))
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-    def test_get_bad_id_no(self):
+    def test_get_bad_id_no_exist(self):
         """Test get without id"""
         instance = Place()
         storage = FileStorage()
@@ -173,17 +180,16 @@ class TestFileStorage(unittest.TestCase):
         storage.new(instance)
         storage.new(second_instance)
         storage.save()
-        self.assertEqual(type(storage.get(instance, second_instance)),
+        self.assertEqual(type(storage.get(instance, second_instance.id)),
                          type(None))
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_get_ok(self):
         """Test get working ok"""
         instance = Place()
-        storage = FileStorage()
-        storage.new(instance)
-        storage.save()
-        self.assertEqual(type(storage.get(instance, instance.id)),
+        models.storage.new(instance)
+        instance.save()
+        self.assertEqual(type(models.storage.get(instance, instance.id)),
                          type(None))
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
