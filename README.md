@@ -154,10 +154,37 @@ EOF  all  create  destroy  help  quit  show  update
 No known bugs at this time. 
 
 ## Authors
-Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twitter.com/alexa_orrico)  
+Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twitter.com/alexa_orrico)
+
 Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
-Nathaly Sotomayor -  [Github](http://github.com/nathsotomayor) / [Twitter](https://twitter.com/nathsotomayor)
-David Orejuela -  [Github](https://github.com/daorejuela1) / [Twitter](https://twitter.com/DavidOrejuela14)
+
 Second part of Airbnb: Joann Vuong
+
+
+# 0x05. AirBnB clone - RESTful API
+Added route `/api/v1/` in which the first version of the API(application programming interface) is located.
+
+The API has the possibility to access/modify from external device the data in the database (MySQL) and (`File.JSON`) using the methods:
+
+[`HTTP GET`](https://restfulapi.net/http-methods/#get) -> Get information
+
+[`HTTP POST`](https://restfulapi.net/http-methods/#post) -> Create information
+
+[`HTTP PUT`](https://restfulapi.net/http-methods/#put) -> Update information
+
+[`HTTP DELETE`](https://restfulapi.net/http-methods/#delete) -> Delete information
+
+This is in order of being able to communicate to the Front-end the information and the user to have the ability to interact with the Airbnb_clone which has the mission of storing information about houses in rent and the users within.
+
+Started `CORS` was set to allow any software in the device to interact with the API resources, since in any other case results may be blocked.
+
+
+## Authors
+
+Nathaly Sotomayor -  [Github](http://github.com/nathsotomayor) / [Twitter](https://twitter.com/nathsotomayor)
+
+David Orejuela -  [Github](https://github.com/daorejuela1) / [Twitter](https://twitter.com/DavidOrejuela14)
+
+
 ## License
 Public Domain. No copy write protection. 
