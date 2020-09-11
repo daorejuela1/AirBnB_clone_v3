@@ -78,7 +78,7 @@ def post_place(city_id):
         return jsonify(new_place.to_dict()), 201
 
 
-@app_views.route('/reviews/<review_id>', strict_slashes=False, methods=['PUT'])
+@app_views.route('/places/<place_id>' strict_slashes=False, methods=['PUT'])
 def put_place(place_id):
     """
     Update a Place object
@@ -90,7 +90,7 @@ def put_place(place_id):
     if (type(data_json) is not dict):
         abort(400, "Not a JSON")
     for key, value in data_json.items():
-        if key in ["id", "user_id", "place_id", "created_at", "updated_at"]:
+        if key in ["id", "user_id", "city_id", "created_at", "updated_at"]:
             continue
         setattr(obj, key, value)
     storage.save()
