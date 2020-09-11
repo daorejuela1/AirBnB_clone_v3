@@ -13,7 +13,7 @@ from models.engine.db_storage import classes
 
 @app_views.route('/places/<place_id>/amenities',
                  strict_slashes=False, methods=['GET'])
-def all_amenities(place_id):
+def all_amenities_place(place_id):
     """
     Retrieves the list of all Amenity objects
     """
@@ -28,7 +28,7 @@ def all_amenities(place_id):
 
 @app_views.route('/places/<place_id>/amenities/<amenity_id>',
                  strict_slashes=False, methods=['DELETE'])
-def del_amenity(place_id, amenity_id):
+def del_amenity_place(place_id, amenity_id):
     """
     Deletes an Amenity object if id is linked to Place and Amenity object
     """
@@ -47,7 +47,7 @@ def del_amenity(place_id, amenity_id):
 
 @app_views.route('places/<place_id>/amenities/<amenity_id>',
                  strict_slashes=False, methods=['POST'])
-def post_amenity(place_id, amenity_id):
+def post_amenity_place(place_id, amenity_id):
     """
     Link a Amenity object to a Place
     """
