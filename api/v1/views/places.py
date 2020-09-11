@@ -78,6 +78,16 @@ def post_place(city_id):
         return jsonify(new_place.to_dict()), 201
 
 
+@app_views.route('/places_search', strict_slashes=False, methods=['POST'])
+def post_place_search():
+    data_json = request.get_json(force=True, silent=True)
+    if (type(data_json) is not dict):
+        abort(400, "Not a JSON")
+    if data_json == {}:
+        all_places = storage.all(classes["Place"])
+        return all_places
+
+
 @app_views.route('/places/<place_id>', strict_slashes=False, methods=['PUT'])
 def put_place(place_id):
     """
