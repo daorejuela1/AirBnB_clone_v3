@@ -28,9 +28,10 @@ class User(BaseModel, Base):
     def __setattr__(self, name, value):
         """Magic method for hashing password"""
         if name == "password":
-            self.__dict__[name] = md5(value.encode()).hexdigest()
+            super(User, self).__setattr__(name,
+                                          md5(value.encode()).hexdigest())
         else:
-            self.__dict__[name] = value
+            super(User, self).__setattr__(name, value)
 
     def __init__(self, *args, **kwargs):
         """initializes user"""
